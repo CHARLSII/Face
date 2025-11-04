@@ -1,0 +1,15 @@
+names:
+- Boss
+- Charls
+- French
+- Kenneth
+nc: 4
+roboflow:
+  license: CC BY 4.0
+  project: face-recognition-lrmfu
+  url: https://universe.roboflow.com/charls-lab/face-recognition-lrmfu/dataset/4
+  version: 4
+  workspace: charls-lab
+test: ../test/images
+train: ../train/images
+val: ../valid/images
