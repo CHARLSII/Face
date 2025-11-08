@@ -4,7 +4,7 @@ from ultralytics import YOLO
 # ✅ Step 1: Connect to Roboflow
 rf = Roboflow(api_key="j1lsR6Qm2ufivlsEEBHa")
 project = rf.workspace("charls-lab").project("face-recog-ejzy0")
-version = project.version(2)
+version = project.version(3)
 dataset = version.download("yolov8")
                 
 

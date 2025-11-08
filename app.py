@@ -21,7 +21,7 @@ print("✅ Trained YOLOv8 model loaded successfully!")
 
 
 # -------------------------------
-# Detection Function
+# Detection Functions
 # -------------------------------
 def run_detection(source=0):
     """Runs YOLOv8 detection on webcam or video file."""
@@ -41,7 +41,6 @@ def run_detection(source=0):
         annotated_frame = results[0].plot()
         cv2.imshow(window_name, annotated_frame)
 
-        # Press Q to quit the detection window
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
@@ -49,12 +48,32 @@ def run_detection(source=0):
     cv2.destroyWindow(window_name)
 
 
+def run_image_detection(image_path):
+    """Runs YOLOv8 detection on a single image file."""
+    if not os.path.exists(image_path):
+        messagebox.showerror("Error", f"File not found:\n{image_path}")
+        return
+
+    image = cv2.imread(image_path)
+    if image is None:
+        messagebox.showerror("Error", "Unable to read the image file.")
+        return
+
+    results = model(image)
+    annotated_image = results[0].plot()
+
+    window_name = "YOLO Image Detection"
+    cv2.imshow(window_name, annotated_image)
+    cv2.waitKey(0)
+    cv2.destroyWindow(window_name)
+
+
 # -------------------------------
 # Thread Wrapper
 # -------------------------------
-def start_thread(source):
+def start_thread(target_func, *args):
     """Start detection in a separate thread."""
-    thread = threading.Thread(target=run_detection, args=(source,), daemon=True)
+    thread = threading.Thread(target=target_func, args=args, daemon=True)
     thread.start()
 
 
@@ -68,11 +87,22 @@ def choose_file():
         filetypes=[("Video Files", "*.mp4 *.avi *.mov *.mkv")]
     )
     if video_path:
-        start_thread(video_path)
+        start_thread(run_detection, video_path)
+
+
+def choose_image():
+    """Open file dialog to choose an image file."""
+    image_path = filedialog.askopenfilename(
+        title="Select Image File",
+        filetypes=[("Image Files", "*.jpg *.jpeg *.png")]
+    )
+    if image_path:
+        start_thread(run_image_detection, image_path)
+
 
 def use_camera():
     """Use the default webcam for detection."""
-    start_thread(0)
+    start_thread(run_detection, 0)
 
 
 # -------------------------------
@@ -80,7 +110,7 @@ def use_camera():
 # -------------------------------
 root = tk.Tk()
 root.title("YOLO Face Recognition")
-root.geometry("400x250")
+root.geometry("400x320")
 root.resizable(False, False)
 root.configure(bg="#1e1e1e")
 
@@ -96,6 +126,13 @@ btn_file = tk.Button(
     command=choose_file
 )
 btn_file.pack(pady=10)
+
+btn_image = tk.Button(
+    root, text="🖼️ Choose Image File", font=("Segoe UI", 12),
+    width=20, height=2, bg="#FFA500", fg="white", relief="flat",
+    command=choose_image
+)
+btn_image.pack(pady=10)
 
 btn_camera = tk.Button(
     root, text="📸 Use Camera", font=("Segoe UI", 12),
