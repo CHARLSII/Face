@@ -3,10 +3,11 @@ from ultralytics import YOLO
 
 # ✅ Step 1: Connect to Roboflow
 rf = Roboflow(api_key="j1lsR6Qm2ufivlsEEBHa")
-project = rf.workspace("charls-lab").project("face-recognition-lrmfu")
-version = project.version(5)
+project = rf.workspace("charls-lab").project("face-recog-ejzy0")
+version = project.version(2)
 dataset = version.download("yolov8")
                 
+
 
 # ✅ Step 2: Train the model
 # The dataset.path automatically points to the YOLO-formatted dataset folder

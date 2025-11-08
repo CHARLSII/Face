@@ -1,0 +1,15 @@
+names:
+- Corpin
+- Del Valle
+- Gonzales
+- Marfil
+nc: 4
+roboflow:
+  license: CC BY 4.0
+  project: face-recog-ejzy0
+  url: https://universe.roboflow.com/charls-lab/face-recog-ejzy0/dataset/2
+  version: 2
+  workspace: charls-lab
+test: ../test/images
+train: ../train/images
+val: ../valid/images
