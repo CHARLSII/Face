@@ -16,7 +16,7 @@ results = model.train(
     data=f"{dataset.location}/data.yaml",
     epochs=50,        # you can increase for better accuracy
     imgsz=320,        # image size
-    batch=8,         # batch size
+    batch=4,         # batch size
     name="face_recognition_run",
 )
 
