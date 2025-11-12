@@ -9,7 +9,7 @@ import threading
 # -------------------------------
 # Load YOLO Model
 # -------------------------------
-weights_list = glob.glob("runs/detect/*/weights/best.pt")
+weights_list = glob.glob("runs/detect/face_recognition_run8/weights/best.pt")
 if len(weights_list) == 0:
     messagebox.showerror("Model Not Found", "No trained YOLOv8 model found.\nPlease train first.")
     raise SystemExit

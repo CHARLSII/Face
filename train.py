@@ -4,7 +4,7 @@ from ultralytics import YOLO
 # ✅ Step 1: Connect to Roboflow
 rf = Roboflow(api_key="j1lsR6Qm2ufivlsEEBHa")
 project = rf.workspace("charls-lab").project("face-recog-ejzy0")
-version = project.version(3)
+version = project.version(6)
 dataset = version.download("yolov8")
                 
 
@@ -18,6 +18,7 @@ results = model.train(
     epochs=50,        # you can increase for better accuracy
     imgsz=320,        # image size
     batch=4,         # batch size
+    
     name="face_recognition_run",
 )
 
